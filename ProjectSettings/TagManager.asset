@@ -11,6 +11,11 @@ TagManager:
   - Pin
   - PinSpawnFormation
   - ThrowSpot
+  - ScoreNr
+  - GameManager
+  - PinSpawnPoint
+  - AudioSource
+  - WinEffectPosition
   layers:
   - Default
   - TransparentFX
