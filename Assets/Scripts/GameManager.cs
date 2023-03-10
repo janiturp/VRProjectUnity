@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class GameManager : MonoBehaviour
     public GameObject winEffect;
     public AudioClip winSound;
     public GameObject audioSource;
+    bool playerWin = false;
 
     private void Awake()
     {
@@ -80,14 +82,20 @@ public class GameManager : MonoBehaviour
             countPoints = false;
         }
 
-        if (playerScore == 50)
+        if (playerScore == 50 && !playerWin)
         {
-            audioSource.GetComponent<AudioSource>().PlayOneShot(winSound);
+            WinEffect();
+            playerWin = true;
+        }
+    }
 
-            for (int i = 0; i < winEffectPositions.Length; i++)
-            {
-                Instantiate(winEffect, winEffectPositions[i].transform.position, winEffectPositions[i].transform.rotation);
-            }
+    public void WinEffect()
+    {
+        audioSource.GetComponent<AudioSource>().PlayOneShot(winSound);
+
+        for (int i = 0; i < winEffectPositions.Length; i++)
+        {
+            Instantiate(winEffect, winEffectPositions[i].transform.position, winEffectPositions[i].transform.rotation);
         }
     }
 
@@ -100,5 +108,7 @@ public class GameManager : MonoBehaviour
         Instantiate(pinSpawnPrefab, pinSpawnPoint.transform.position, pinSpawnPoint.transform.rotation);
 
         pinSpawnFormation = null;
+
+        playerWin = false;
     }
 }
